@@ -1,6 +1,7 @@
 package com.iwellness.admin_events_api.controladores;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,16 +39,16 @@ public class EventoControlador {
 
     @GetMapping
     public List<EventoDTO> getAllEventos() throws UsuarioNoAutenticadoException, UsuarioNoAutorizadoPorRolException{
-        seguridadEventos.validarRol();
+        //seguridadEventos.validarRol();
         return eventoServicio.getAllEventos()
             .stream()
             .map(evento -> EventoMapper.eventoToEventoDto(evento))
             .toList();
     }
 
-    @GetMapping(value = "/id/{id}")
+    @GetMapping(value = "/{id}")
     public EventoDTO getEventoById(@PathVariable("id") Long id) throws EventoNotFoundException, UsuarioNoAutorizadoPorRolException{
-        seguridadEventos.validarRol();
+        //seguridadEventos.validarRol();
         Evento evento = eventoServicio.getEventoById(id);
         if (evento == null){
             throw new EventoNotFoundException();
@@ -57,28 +58,28 @@ public class EventoControlador {
 
     @PostMapping
     public EventoDTO creaEvento(@RequestBody EventoDTO eventoDto) throws UsuarioNoAutorizadoPorRolException{
-        seguridadEventos.validarRol();
+        //seguridadEventos.validarRol();
         Evento eventoDtoCrear = EventoMapper.eventoDtoToEvento(eventoDto);
         return EventoMapper.eventoToEventoDto(eventoServicio.crearEvento(eventoDtoCrear));
     }
 
     @PutMapping
     public EventoDTO editarEvento(@RequestBody EventoDTO eventoDto) throws UsuarioNoAutorizadoPorRolException{
-        seguridadEventos.validarRol();
+        //seguridadEventos.validarRol();
         Evento eventoDtoCrear = EventoMapper.eventoDtoToEvento(eventoDto);
         return EventoMapper.eventoToEventoDto(eventoServicio.editarEvento(eventoDtoCrear));
     }
 
-    @DeleteMapping(value = "/id/{id}")
+    @DeleteMapping(value = "/{id}")
     public void eliminarEvento(@PathVariable("id") Long id) throws UsuarioNoAutorizadoPorRolException{
         seguridadEventos.validarRol();
         eventoServicio.eliminarEvento(id);
     }
 
-    @PatchMapping(value = "/id/{id}")
-    public EventoDTO cancelarEvento(@PathVariable("id") Long id) throws EventoNotFoundException, UsuarioNoAutorizadoPorRolException{
-        seguridadEventos.validarRol();
-        Evento evento = eventoServicio.cancelarEvento(id);
+    @PatchMapping(value = "/{id}")
+    public EventoDTO editarParcialEvento(@PathVariable("id") Long id, @RequestBody Map<String, Object> editados) throws EventoNotFoundException, UsuarioNoAutorizadoPorRolException{
+        //seguridadEventos.validarRol();
+        Evento evento = eventoServicio.editarParcialEvento(id, editados);
         if (evento == null){
             throw new EventoNotFoundException();
         }

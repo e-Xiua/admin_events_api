@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -71,7 +72,7 @@ class EventoServicioImplTest {
     }
 
     @Test
-    void cancelarEvento() {
+    void editarParcialEventoCancelarTest() {
         when(eventoRepositorio.findById(1L)).thenReturn(Optional.of(new Evento(1L,"titulo", "descripcion", new Date(),
                 2L, 1000L, List.of("email1", "email2"), TipoEvento.EVENTO, "rojo", true)));
         Mockito.doNothing().when(servicioEmail).enviarEmailCancelacion(any(),any());
@@ -79,9 +80,25 @@ class EventoServicioImplTest {
                 2L, 1000L, List.of("email1", "email2"), TipoEvento.EVENTO, "rojo", false);
         when(eventoRepositorio.save(any())).thenReturn(eventoCancelado);
 
-        eventoCancelado = eventoServicio.cancelarEvento(1L);
+        eventoCancelado = eventoServicio.editarParcialEvento(1L, Map.of("activo", false));
         assertNotNull(eventoCancelado);
         assertFalse(eventoCancelado.getActivo());
+
+        assertNull(eventoServicio.getEventoById(2L));
+    }
+
+    @Test
+    void editarParcialEventoTest() {
+        when(eventoRepositorio.findById(1L)).thenReturn(Optional.of(new Evento(1L,"titulo", "descripcion", new Date(),
+                2L, 1000L, List.of("email1", "email2"), TipoEvento.EVENTO, "rojo", true)));
+        Mockito.doNothing().when(servicioEmail).enviarEmailModificacion(any(),any());
+        Evento eventoEditado = new Evento(1L, "titulo", "descripcion", new Date(),
+                2L, 1000L, List.of("email1", "email2"), TipoEvento.EVENTO, "rojo", false);
+        when(eventoRepositorio.save(any())).thenReturn(eventoEditado);
+
+        eventoEditado = eventoServicio.editarParcialEvento(1L, Map.of("titulo", "tituloEditado"));
+        assertNotNull(eventoEditado);
+        assertFalse(eventoEditado.getActivo());
 
         assertNull(eventoServicio.getEventoById(2L));
     }

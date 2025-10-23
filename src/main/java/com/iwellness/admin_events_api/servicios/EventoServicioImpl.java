@@ -1,6 +1,8 @@
 package com.iwellness.admin_events_api.servicios;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import com.iwellness.admin_events_api.entidades.Evento;
 import com.iwellness.admin_events_api.repositorios.EventoRepositorio;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
 @Service
 public class EventoServicioImpl implements IEventoServicio{
@@ -47,17 +50,29 @@ public class EventoServicioImpl implements IEventoServicio{
     }
 
     @Override
-    public Evento cancelarEvento(Long idEvento) {
+    public Evento editarParcialEvento(Long idEvento, Map<String,Object> editados) {
         Optional<Evento> eventoOpt = eventoRepositorio.findById(idEvento);
         if (eventoOpt.isPresent()){
             Evento evento = eventoOpt.get();
-            evento.setActivo(false);
-            for (String destinatario : evento.getAsistentes()) {
-                servicioEmail.enviarEmailCancelacion(destinatario, evento.getTitulo());
+            if (editados.containsKey("activo")){
+                evento.setActivo(false);
+                for (String destinatario : evento.getAsistentes()) {
+                    servicioEmail.enviarEmailCancelacion(destinatario, evento.getTitulo());
+                }
+            } else {
+                editados.forEach((key, value) -> {
+                    Field field = ReflectionUtils.findField(Evento.class, key);
+                    if (field != null) {
+                        ReflectionUtils.makeAccessible(field);
+                        ReflectionUtils.setField(field, evento, value);
+                    }
+                });
+                for (String destinatario : evento.getAsistentes()) {
+                    servicioEmail.enviarEmailModificacion(destinatario, evento.getTitulo());
+                }
             }
             return eventoRepositorio.save(evento);
         }
         return null;
     }
-    
 }

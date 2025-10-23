@@ -2,11 +2,10 @@ package com.iwellness.admin_events_api.controladores;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.iwellness.admin_events_api.dto.EventoDTO;
 import com.iwellness.admin_events_api.entidades.Evento;
@@ -78,16 +77,17 @@ public class EventoControladorTest {
     }
 
     @Test
-    public void cancelarEventoTest() throws UsuarioNoAutorizadoPorRolException, EventoNotFoundException {
+    public void editarParcialEventoTest() throws UsuarioNoAutorizadoPorRolException, EventoNotFoundException {
         Mockito.doNothing().when(seguridadEventos).validarRol();
-        Evento eventoCancelar = new Evento(1L, "titulo", "descripcion", new Date(),
+        Evento evento = new Evento(1L, "titulo", "descripcion", new Date(),
                 2L, 1000L, List.of(), TipoEvento.EVENTO, "rojo", false);
-        when(eventoServicioImpl.cancelarEvento(1L)).thenReturn(eventoCancelar);
+        Map<String, Object> atributosAeditar = new HashMap<>();
+        when(eventoServicioImpl.editarParcialEvento(1L, atributosAeditar)).thenReturn(evento);
 
-        EventoDTO eventoCancelado = eventoControlador.cancelarEvento(1L);
-        assertNotNull(eventoCancelado);
-        assertFalse(eventoCancelado.getActivo());
+        EventoDTO eventoeditado = eventoControlador.editarParcialEvento(1L, atributosAeditar);
+        assertNotNull(eventoeditado);
+        assertFalse(eventoeditado.getActivo());
 
-        assertThrows(EventoNotFoundException.class, () -> eventoControlador.cancelarEvento(2L));
+        assertThrows(EventoNotFoundException.class, () -> eventoControlador.editarParcialEvento(2L, new HashMap<>()));
     }
 }
