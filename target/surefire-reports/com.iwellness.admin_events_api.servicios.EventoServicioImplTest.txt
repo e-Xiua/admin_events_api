@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.iwellness.admin_events_api.servicios.EventoServicioImplTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.171 s -- in com.iwellness.admin_events_api.servicios.EventoServicioImplTest
