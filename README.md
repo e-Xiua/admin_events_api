@@ -154,7 +154,7 @@ http://localhost:8088/evento
 - **Autorización por Rol**: Validación de permisos según rol del usuario
 - **Validación de Datos**: Validación de integridad de datos de entrada
 
-### Excepciones de Seguridad
+### Excepciones
 - `UsuarioNoAutenticadoException`: Usuario no autenticado
 - `UsuarioNoAutorizadoPorRolException`: Usuario sin permisos suficientes
 - `EventoNotFoundException`: Evento no encontrado
@@ -186,7 +186,6 @@ mvn test
 ### Cobertura de Testing
 - Pruebas unitarias para controladores
 - Pruebas unitarias para servicios
-- Pruebas de integración de la aplicación
 
 ## Comunicación Externa
 
