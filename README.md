@@ -203,3 +203,4 @@ mvn test
 - **Profiles**: Soporte para perfiles de desarrollo y docker
 - **Logging**: Configuración estándar de Spring Boot
 - **Build Tool**: Maven con plugins de Spring Boot
+- **Resolver problemas con maven**: ejecutar  mvn -N wrapper:wrapper  
