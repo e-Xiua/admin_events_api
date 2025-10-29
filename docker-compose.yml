@@ -4,12 +4,12 @@ services:
 
   backend:
     build:
-      context: ./admin_events_api-main
+      context: ./
       dockerfile: Dockerfile
     ports:
       - "8088:8088"
     volumes:
-      - ./admin_events_api-main/iwellness_admin_events_api.db:/app/iwellness_admin_events_api.db
+      - ./admin_events_api-main/iwellness_admin_events_api.db:/iwellness_admin_events_api.db
     environment:
       - SPRING_PROFILES_ACTIVE=docker
 
