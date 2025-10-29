@@ -19,7 +19,7 @@ public class ServicioEmail {
         message.setTo(destinatario);
         message.setSubject("Evento Cancelado");
         message.setText(mensaje);
-        //mailSender.send(message);
+        mailSender.send(message);
     }
 
     public void enviarEmailModificacion(String destinatario, String evento) {
@@ -29,7 +29,7 @@ public class ServicioEmail {
         message.setTo(destinatario);
         message.setSubject("Evento Modificado");
         message.setText(mensaje);
-        //mailSender.send(message);
+        mailSender.send(message);
     }
     
 }
