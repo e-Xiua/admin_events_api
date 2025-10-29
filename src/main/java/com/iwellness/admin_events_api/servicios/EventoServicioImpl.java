@@ -64,7 +64,7 @@ public class EventoServicioImpl implements IEventoServicio{
                     Field field = ReflectionUtils.findField(Evento.class, key);
                     if (field != null) {
                         ReflectionUtils.makeAccessible(field);
-                        ReflectionUtils.setField(field, evento, value);
+                        ReflectionUtils.setField(field, evento, getConvertedValue(field,value));
                     }
                 });
                 for (String destinatario : evento.getAsistentes()) {
@@ -74,5 +74,14 @@ public class EventoServicioImpl implements IEventoServicio{
             return eventoRepositorio.save(evento);
         }
         return null;
+    }
+
+    private Object getConvertedValue(Field field, Object value) {
+        if(!field.getType().equals(value.getClass())){
+            if(field.getType().equals(Long.class)){
+                return Long.valueOf(value.toString());
+            }
+        }
+        return value;
     }
 }
