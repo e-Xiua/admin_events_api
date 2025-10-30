@@ -5,6 +5,7 @@ import com.iwellness.admin_events_api.email.ServicioEmail;
 import com.iwellness.admin_events_api.entidades.Evento;
 import com.iwellness.admin_events_api.entidades.TipoEvento;
 import com.iwellness.admin_events_api.exceptions.EventoNotFoundException;
+import com.iwellness.admin_events_api.exceptions.FormatoFechaInvalidoException;
 import com.iwellness.admin_events_api.repositorios.EventoRepositorio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -72,7 +73,7 @@ class EventoServicioImplTest {
     }
 
     @Test
-    void editarParcialEventoCancelarTest() {
+    void editarParcialEventoCancelarTest() throws FormatoFechaInvalidoException {
         when(eventoRepositorio.findById(1L)).thenReturn(Optional.of(new Evento(1L,"titulo", "descripcion", new Date(),
                 2L, 1000L, List.of("email1", "email2"), TipoEvento.EVENTO, "rojo", true)));
         Mockito.doNothing().when(servicioEmail).enviarEmailCancelacion(any(),any());
@@ -88,7 +89,7 @@ class EventoServicioImplTest {
     }
 
     @Test
-    void editarParcialEventoTest() {
+    void editarParcialEventoTest() throws FormatoFechaInvalidoException {
         when(eventoRepositorio.findById(1L)).thenReturn(Optional.of(new Evento(1L,"titulo", "descripcion", new Date(),
                 2L, 1000L, List.of("email1", "email2"), TipoEvento.EVENTO, "rojo", true)));
         Mockito.doNothing().when(servicioEmail).enviarEmailModificacion(any(),any());
