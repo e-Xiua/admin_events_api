@@ -6,11 +6,12 @@ import com.iwellness.admin_events_api.exceptions.FormatoFechaInvalidoException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class EventoMapper {
 
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     public static  Evento eventoDtoToEvento(EventoDTO eventoDTO) throws FormatoFechaInvalidoException {
         Date fechaEventoFormateada = null;

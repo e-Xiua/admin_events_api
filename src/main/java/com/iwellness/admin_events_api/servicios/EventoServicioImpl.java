@@ -89,7 +89,7 @@ public class EventoServicioImpl implements IEventoServicio{
                 return Long.valueOf(value.toString());
             }
             if(field.getType().equals(Date.class)){
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 try {
                     return dateFormat.parse(value.toString());
                 } catch (ParseException e) {
