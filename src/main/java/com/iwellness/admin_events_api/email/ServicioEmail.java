@@ -15,7 +15,7 @@ public class ServicioEmail {
     public void enviarEmailCancelacion(String destinatario, String evento) {
         SimpleMailMessage message = new SimpleMailMessage();
         String mensaje = "Lamentamos informarle que el evento "+evento+" fue cancelado.";
-        message.setFrom("d4rkd3m0n1@gmail.com");
+        message.setFrom("notificaciones.exiua@gmail.com");
         message.setTo(destinatario);
         message.setSubject("Evento Cancelado");
         message.setText(mensaje);
@@ -25,7 +25,7 @@ public class ServicioEmail {
     public void enviarEmailModificacion(String destinatario, String evento) {
         SimpleMailMessage message = new SimpleMailMessage();
         String mensaje = "Estimado usuario se informa que el evento "+evento+" fue modificado.\nGracias.";
-        message.setFrom("d4rkd3m0n1@gmail.com");
+        message.setFrom("notificaciones.exiua@gmail.com");
         message.setTo(destinatario);
         message.setSubject("Evento Modificado");
         message.setText(mensaje);

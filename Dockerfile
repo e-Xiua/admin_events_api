@@ -1,12 +1,10 @@
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-alpine
 
 WORKDIR /app
 
 COPY pom.xml .
-COPY /iwellness_admin_events_api.db  .
 COPY mvnw .
 COPY .mvn .mvn
-
 RUN chmod +x mvnw
 RUN ./mvnw dependency:go-offline
 
