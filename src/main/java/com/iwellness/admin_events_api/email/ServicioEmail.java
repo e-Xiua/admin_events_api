@@ -14,22 +14,22 @@ public class ServicioEmail {
 
     public void enviarEmailCancelacion(String destinatario, String evento) {
         SimpleMailMessage message = new SimpleMailMessage();
-        String mensaje = MessageFormatter.format("Lamentamos informarle que el evento {} fue cancelado.", evento).toString();
-        message.setFrom("Hernan.suarez@javeriana.edu.co");
+        String mensaje = "Lamentamos informarle que el evento "+evento+" fue cancelado.";
+        message.setFrom("notificaciones.exiua@gmail.com");
         message.setTo(destinatario);
         message.setSubject("Evento Cancelado");
         message.setText(mensaje);
-        //mailSender.send(message);
+        mailSender.send(message);
     }
 
     public void enviarEmailModificacion(String destinatario, String evento) {
         SimpleMailMessage message = new SimpleMailMessage();
-        String mensaje = MessageFormatter.format("Estimado usuario se informa que el evento {} fue modificado.\nGracias.", evento).toString();
-        message.setFrom("Hernan.suarez@javeriana.edu.co");
+        String mensaje = "Estimado usuario se informa que el evento "+evento+" fue modificado.\nGracias.";
+        message.setFrom("notificaciones.exiua@gmail.com");
         message.setTo(destinatario);
         message.setSubject("Evento Modificado");
         message.setText(mensaje);
-        //mailSender.send(message);
+        mailSender.send(message);
     }
     
 }

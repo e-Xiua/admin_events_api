@@ -5,6 +5,7 @@ import java.util.Map;
 
 
 import com.iwellness.admin_events_api.entidades.Evento;
+import com.iwellness.admin_events_api.exceptions.FormatoFechaInvalidoException;
 import com.iwellness.admin_events_api.exceptions.UsuarioNoAutenticadoException;
 
 public interface IEventoServicio {
@@ -14,5 +15,5 @@ public interface IEventoServicio {
     Evento crearEvento(Evento evento);
     Evento editarEvento(Evento evento);
     void eliminarEvento(Long idEvento);
-    Evento editarParcialEvento(Long idEvento, Map<String, Object> editados);
+    Evento editarParcialEvento(Long idEvento, Map<String, Object> editados) throws FormatoFechaInvalidoException;
 }

@@ -3,6 +3,7 @@ package com.iwellness.admin_events_api.controladores;
 import java.util.List;
 import java.util.Map;
 
+import com.iwellness.admin_events_api.exceptions.FormatoFechaInvalidoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -57,14 +58,14 @@ public class EventoControlador {
     }
 
     @PostMapping
-    public EventoDTO creaEvento(@RequestBody EventoDTO eventoDto) throws UsuarioNoAutorizadoPorRolException{
+    public EventoDTO creaEvento(@RequestBody EventoDTO eventoDto) throws UsuarioNoAutorizadoPorRolException, FormatoFechaInvalidoException {
         //seguridadEventos.validarRol();
         Evento eventoDtoCrear = EventoMapper.eventoDtoToEvento(eventoDto);
         return EventoMapper.eventoToEventoDto(eventoServicio.crearEvento(eventoDtoCrear));
     }
 
     @PutMapping
-    public EventoDTO editarEvento(@RequestBody EventoDTO eventoDto) throws UsuarioNoAutorizadoPorRolException{
+    public EventoDTO editarEvento(@RequestBody EventoDTO eventoDto) throws UsuarioNoAutorizadoPorRolException, FormatoFechaInvalidoException {
         //seguridadEventos.validarRol();
         Evento eventoDtoCrear = EventoMapper.eventoDtoToEvento(eventoDto);
         return EventoMapper.eventoToEventoDto(eventoServicio.editarEvento(eventoDtoCrear));
@@ -77,7 +78,7 @@ public class EventoControlador {
     }
 
     @PatchMapping(value = "/{id}")
-    public EventoDTO editarParcialEvento(@PathVariable("id") Long id, @RequestBody Map<String, Object> editados) throws EventoNotFoundException, UsuarioNoAutorizadoPorRolException{
+    public EventoDTO editarParcialEvento(@PathVariable("id") Long id, @RequestBody Map<String, Object> editados) throws EventoNotFoundException, UsuarioNoAutorizadoPorRolException, FormatoFechaInvalidoException {
         //seguridadEventos.validarRol();
         Evento evento = eventoServicio.editarParcialEvento(id, editados);
         if (evento == null){

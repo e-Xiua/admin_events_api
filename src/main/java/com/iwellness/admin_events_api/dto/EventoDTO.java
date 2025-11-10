@@ -17,7 +17,7 @@ public class EventoDTO {
     private Long id;
     private String titulo;
     private String descripcion;
-    private Date fecha = Date.from(Instant.now());
+    private String fecha;
     private Long duracion;
     private Long costo;
     private List<String> asistentes;

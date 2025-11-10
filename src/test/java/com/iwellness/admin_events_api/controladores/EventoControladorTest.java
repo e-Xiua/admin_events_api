@@ -11,6 +11,7 @@ import com.iwellness.admin_events_api.dto.EventoDTO;
 import com.iwellness.admin_events_api.entidades.Evento;
 import com.iwellness.admin_events_api.entidades.TipoEvento;
 import com.iwellness.admin_events_api.exceptions.EventoNotFoundException;
+import com.iwellness.admin_events_api.exceptions.FormatoFechaInvalidoException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -37,14 +38,14 @@ public class EventoControladorTest {
 
     @Test
     public void getEventosTest() throws UsuarioNoAutenticadoException, UsuarioNoAutorizadoPorRolException{
-        Mockito.doNothing().when(seguridadEventos).validarRol();
+        //Mockito.doNothing().when(seguridadEventos).validarRol();
         when(eventoServicioImpl.getAllEventos()).thenReturn(List.of(new Evento(), new Evento()));
         assertEquals(2, eventoControlador.getAllEventos().size());
     }
 
     @Test
     public void getgetEventoByIdTest() throws UsuarioNoAutenticadoException, UsuarioNoAutorizadoPorRolException, EventoNotFoundException {
-        Mockito.doNothing().when(seguridadEventos).validarRol();
+        //Mockito.doNothing().when(seguridadEventos).validarRol();
         when(eventoServicioImpl.getEventoById(1L)).thenReturn(new Evento(1L,"titulo", "descripcion", new Date(),
                 2L, 1000L, List.of(), TipoEvento.EVENTO, "rojo", true));
         assertEquals(1L, eventoControlador.getEventoById(1L).getId());
@@ -53,8 +54,8 @@ public class EventoControladorTest {
     }
 
     @Test
-    public void creaEventoTest() throws UsuarioNoAutorizadoPorRolException{
-        Mockito.doNothing().when(seguridadEventos).validarRol();
+    public void creaEventoTest() throws UsuarioNoAutorizadoPorRolException, FormatoFechaInvalidoException {
+        //Mockito.doNothing().when(seguridadEventos).validarRol();
         Evento eventoCrear = new Evento(1L, "titulo", "descripcion", new Date(),
                 2L, 1000L, List.of(), TipoEvento.EVENTO, "rojo", true);
         when(eventoServicioImpl.crearEvento(any())).thenReturn(eventoCrear);
@@ -65,8 +66,8 @@ public class EventoControladorTest {
     }
 
     @Test
-    public void editarEventoTest() throws UsuarioNoAutorizadoPorRolException{
-        Mockito.doNothing().when(seguridadEventos).validarRol();
+    public void editarEventoTest() throws UsuarioNoAutorizadoPorRolException, FormatoFechaInvalidoException {
+        //Mockito.doNothing().when(seguridadEventos).validarRol();
         Evento eventoEditar = new Evento(1L, "titulo", "descripcion", new Date(),
                 2L, 1000L, List.of(), TipoEvento.EVENTO, "rojo", true);
         when(eventoServicioImpl.editarEvento(any())).thenReturn(eventoEditar);
@@ -77,8 +78,8 @@ public class EventoControladorTest {
     }
 
     @Test
-    public void editarParcialEventoTest() throws UsuarioNoAutorizadoPorRolException, EventoNotFoundException {
-        Mockito.doNothing().when(seguridadEventos).validarRol();
+    public void editarParcialEventoTest() throws UsuarioNoAutorizadoPorRolException, EventoNotFoundException, FormatoFechaInvalidoException {
+        //Mockito.doNothing().when(seguridadEventos).validarRol();
         Evento evento = new Evento(1L, "titulo", "descripcion", new Date(),
                 2L, 1000L, List.of(), TipoEvento.EVENTO, "rojo", false);
         Map<String, Object> atributosAeditar = new HashMap<>();
