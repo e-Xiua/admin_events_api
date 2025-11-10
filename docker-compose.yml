@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-
   backend:
+    container_name: admin-events-api
     build:
       context: ./
       dockerfile: Dockerfile
@@ -12,7 +12,8 @@ services:
       - ./admin_events_api-main/iwellness_admin_events_api.db:/iwellness_admin_events_api.db
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-
+    networks:
+      - tesisNetwork
 networks:
-  default:
-    driver: bridge
+  tesisNetwork:
+    external: true
